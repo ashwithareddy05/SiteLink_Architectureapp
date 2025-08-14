@@ -1,0 +1,13 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>Available Internships</h2>
+<ul>
+  {% for internship in internships %}
+    <li>
+      <strong>{{ internship.title }}</strong><br>
+      {{ internship.description|truncatewords:20 }}<br>
+      <a href="{% url 'apply_internship' internship.id %}">Apply</a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

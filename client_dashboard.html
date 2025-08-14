@@ -1,0 +1,240 @@
+
+
+
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .dashboard-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        color: #003366;
+        margin-bottom: 25px;
+    }
+
+    .card-box {
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .card-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #003366;
+        margin-bottom: 12px;
+    }
+
+    ul {
+        padding-left: 20px;
+    }
+
+    ul li {
+        margin-bottom: 8px;
+        font-size: 15px;
+        color: #555;
+    }
+
+    .firm-name {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .firm-details {
+        font-size: 14px;
+        color: #444;
+        padding-left: 15px;
+        margin-top: 8px;
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-weight: 500;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        background-color: #28a745;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .submit-btn:hover {
+        background-color: #218838;
+    }
+
+    .success-message {
+        text-align: center;
+        color: green;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .errorlist {
+        color: red;
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    h3 {
+        font-size: 20px;
+        color: #003366;
+        margin: 40px 0 20px;
+        text-align: center;
+    }
+
+    .firm-response p {
+        margin: 8px 0;
+        font-size: 14px;
+        color: #444;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container {
+            padding: 20px 15px;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <h2>🏠 Welcome, {{ request.user.username }}!</h2>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="success-message">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- Architecture Firms -->
+    <div class="card-box">
+        <div class="card-title">🏢 Architecture Firms</div>
+        {% if firms %}
+            <ul>
+                {% for firm in firms %}
+                    <li class="firm-name">
+                        {{ firm.username }}
+                        {% if firm.username == "ashwithareddy" %}
+                            <div class="firm-details">
+                                <p><strong>Firm Name:</strong> Urban Zen</p>
+                                <p><strong>Location:</strong> Hyderabad</p>
+                                <p><strong>Founder:</strong> Designer Rohit Suraj</p>
+                                <p>
+                                    Urban Zen is a leading interior design firm based in Hyderabad. Founded in 2011 as a one-person operation, today the firm has grown to over 60 employees with projects across India, the Middle East, and Europe. Rohit Suraj has led the firm to great success by focusing on the unique needs, passions, and visions of each client.
+                                </p>
+                                <p><strong>Services Provided:</strong></p>
+                                <ul>
+                                    <li>Bathroom Design</li>
+                                    <li>Bedroom Design</li>
+                                    <li>Dining Room Design</li>
+                                    <li>Interior Design</li>
+                                    <li>Kids Bedroom Design</li>
+                                    <li>Kitchen Design</li>
+                                    <li>Laundry / Utility Room Design</li>
+                                    <li>Living Room Design</li>
+                                    <li>Nursery Design</li>
+                                    <li>Space Planning</li>
+                                    <li>Staircase Design</li>
+                                    <li>Sustainable Design</li>
+                                    <li>Universal Design</li>
+                                    <li>Wardrobe Design</li>
+                                    <li>Wine Cellar Design</li>
+                                </ul>
+                                <p><strong>Category:</strong> Interior Designers & Decorators</p>
+                                <hr>
+                                <p><strong>Looking for Interior Designers in Hyderabad?</strong></p>
+                                <p>
+                                    With over 1 million home professionals on platforms like Houzz, finding a trusted Interior Designer & Decorator is easier than ever. Read homeowner reviews, ask questions, and manage quotes all from one place.
+                                </p>
+                                <p><strong>Popular Cities:</strong> Delhi, Bangalore, Kolkata, Chennai, Hyderabad, Ahmedabad, Pune, Surat, Visakhapatnam, Jaipur</p>
+                                <p><strong>Related Services:</strong> 3D Rendering, Colour Consulting, Custom Bathroom Vanities, Custom Built-ins</p>
+                                <p><strong>Contact Information:</strong></p>
+                                <ul>
+                                     <li><strong>Phone:</strong> +91 98765 43210</li>
+                                     <li><strong>Email:</strong> contact@urbanzen.in</li>
+                                     <li><strong>Address:</strong> Road No. 12, Banjara Hills, Hyderabad, Telangana, India</li>
+                                </ul>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No firms available right now.</p>
+        {% endif %}
+    </div>
+
+    <!-- Post House Project Form -->
+    <div class="card-box">
+        <div class="card-title">📝 Post House Project Details</div>
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% for error in field.errors %}
+                        <div class="errorlist">{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+    </div>
+
+    <!-- Firm Responses -->
+    <h3>📬 Firm Responses</h3>
+    {% for project in request.user.houseproject_set.all %}
+        {% if project.status == "approved" %}
+            <div class="card-box firm-response">
+                <div class="card-title">{{ project.project_name }}</div>
+                <p><strong>Status:</strong> ✅ {{ project.status }}</p>
+                <p><strong>Firm's Message:</strong> {{ project.firm_response|default:"No message provided." }}</p>
+                <p><strong>Approved By:</strong>
+                    {% if project.firm %}
+                        {{ project.firm.name }} ({{ project.firm.user.username }})
+                    {% else %}
+                        Not assigned
+                    {% endif %}
+                </p>
+            </div>
+        {% endif %}
+    {% empty %}
+        <p>No approved responses yet.</p>
+    {% endfor %}
+</div>
+{% endblock %}

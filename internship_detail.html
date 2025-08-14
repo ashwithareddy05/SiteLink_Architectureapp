@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="internship-detail">
+    <h2>{{ internship.title }}</h2>
+    <p><strong>Company:</strong> {{ internship.company_name }}</p>
+    <p><strong>📍 Location:</strong> {{ internship.location }} | 
+       <strong>🕒 Duration:</strong> {{ internship.duration }} |
+       <strong>💰 Stipend:</strong> {{ internship.stipend }}</p>
+    <p><strong>📅 Deadline:</strong> {{ internship.deadline }} |
+       <strong>🧑‍💼 Mode:</strong> {{ internship.mode }}</p>
+
+    <hr>
+
+    <h4>Responsibilities</h4>
+    <p>{{ internship.responsibilities|linebreaks }}</p>
+
+    <h4>Requirements</h4>
+    <p>{{ internship.requirements|linebreaks }}</p>
+
+    {% if internship.perks %}
+    <h4>Perks</h4>
+    <p>{{ internship.perks|linebreaks }}</p>
+    {% endif %}
+
+    <br>
+    <a class="btn btn-primary" href="{% url 'apply_internship' internship.pk %}">Apply Now</a>
+</div>
+{% endblock %}

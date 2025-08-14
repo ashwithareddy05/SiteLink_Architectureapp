@@ -1,0 +1,10 @@
+<!-- success.html -->
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="alert alert-success text-center mt-5">
+    <h2>Success!</h2>
+    <p>Your internship has been posted successfully.</p>
+    <a href="{% url 'firm_dashboard' %}" class="btn btn-primary mt-3">Back to Dashboard</a>
+</div>
+{% endblock %}

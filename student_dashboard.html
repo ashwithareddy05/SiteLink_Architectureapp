@@ -1,0 +1,186 @@
+{% extends 'core/base.html' %}
+
+{% block layout %}
+<!-- remove the boxed container coming from base.html -->
+<div style="width:100%;padding:0;margin:0">
+    {% block content %}
+    <style>
+        :root{
+            --blue:#007bff;
+            --blue-dark:#0056b3;
+            --green:#28a745;
+            --text-dark:#003366;
+            --text-med:#555;
+        }
+        *{box-sizing:border-box}
+
+        body{
+            background:#f4f6f9;
+            margin:0;
+            font-family:Arial,Helvetica,sans-serif;
+        }
+
+        /* ---------- MAIN WRAPPER ---------- */
+        .dashboard-container{
+            width:100%;
+            max-width:1600px;          /* keeps text line‑length reasonable on very wide screens   */
+            margin:auto;
+            padding:2rem 4vw;          /* vw keeps side‑padding fluid                                */
+        }
+        h2{
+            color:var(--text-dark);
+            text-align:center;
+            margin:0 0 2rem 0;
+            font-size:clamp(22px,3vw,32px);
+        }
+
+        /* ---------- FILTER BAR ---------- */
+        .filter-form{
+            display:flex;
+            flex-wrap:wrap;
+            gap:10px;
+            background:#fff;
+            padding:1rem;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.05);
+            margin-bottom:2rem;
+        }
+        .filter-form input,
+        .filter-form select{
+            flex:1 1 200px;
+            padding:8px;
+            border:1px solid #ccc;
+            border-radius:4px;
+            min-width:140px;
+        }
+        .filter-form button{
+            background:var(--blue);
+            color:#fff;
+            border:none;
+            padding:8px 18px;
+            border-radius:4px;
+            font-weight:600;
+        }
+        .filter-form button:hover{background:var(--blue-dark)}
+
+        /* ---------- CARDS ---------- */
+        .internship-list{display:flex;flex-direction:column;gap:1.5rem}
+        .internship-card{
+            background:#fff;
+            border-radius:10px;
+            box-shadow:0 4px 10px rgba(0,0,0,.05);
+            padding:1.5rem;
+            transition:.25s;
+        }
+        .internship-card:hover{transform:translateY(-4px)}
+        .internship-card h4{color:var(--text-dark);margin:0 0 .4rem;font-size:18px}
+        .internship-card p{margin:4px 0;color:var(--text-med);font-size:14px}
+        .apply-btn{
+            display:inline-block;
+            background:var(--blue);
+            color:#fff;
+            padding:7px 16px;
+            border-radius:5px;
+            margin-top:8px;
+            font-weight:600;
+            text-decoration:none;
+        }
+        .apply-btn:hover{background:var(--blue-dark)}
+
+        /* ---------- APPLIED SECTION ---------- */
+        .applied-section{
+            margin-top:4rem;
+            background:#fff;
+            border-radius:10px;
+            padding:1.5rem;
+            box-shadow:0 4px 10px rgba(0,0,0,.05);
+        }
+        .applied-section h3{
+            color:var(--text-dark);
+            margin-top:0;
+            margin-bottom:1rem;
+            font-size:20px;
+            text-align:center;
+        }
+        .applied-list{padding-left:1.2rem;margin:0}
+        .applied-list li{margin-bottom:.7rem;color:var(--text-med)}
+
+        /* ---------- MOBILE TWEAKS ---------- */
+        @media(max-width:768px){
+            .dashboard-container{padding:1.5rem 5vw}
+            .filter-form input,
+            .filter-form select{flex:1 1 100%}
+        }
+    </style>
+
+    <div class="dashboard-container">
+        <!-- WELCOME HEADER CENTERED -->
+    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-bottom: 2rem;">
+        <h2 style="margin-bottom: 0.5rem;">📘 Welcome, {{ request.user.first_name|default:request.user.username }}!</h2>
+    <p>This is your student dashboard.</p>
+    </div>
+
+        <h2>🎯 Available Internships</h2>
+
+        <!-- FILTER BAR -->
+        <form method="get" class="filter-form">
+            <input type="text" name="search" placeholder="Search by title, company, or description"
+                   value="{{ request.GET.search }}">
+            <select name="location">
+                <option value="">All Locations</option>
+                {% for loc in locations %}
+                    <option value="{{ loc }}" {% if request.GET.location == loc %}selected{% endif %}>{{ loc }}</option>
+                {% endfor %}
+            </select>
+            <select name="mode">
+                <option value="">All Modes</option>
+                <option value="On-site" {% if request.GET.mode == 'On-site' %}selected{% endif %}>On-site</option>
+                <option value="Remote" {% if request.GET.mode == 'Remote' %}selected{% endif %}>Remote</option>
+            </select>
+            <select name="stipend">
+                <option value="">All Stipends</option>
+                <option value="paid" {% if request.GET.stipend == 'paid' %}selected{% endif %}>Paid</option>
+                <option value="unpaid" {% if request.GET.stipend == 'unpaid' %}selected{% endif %}>Unpaid</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+
+        <!-- AVAILABLE INTERNSHIPS -->
+        <div class="internship-list">
+            {% for internship in available_internships %}
+            <div class="internship-card">
+                <h4>{{ internship.title }}</h4>
+                <p><strong>Company:</strong> {{ internship.company_name }}</p>
+                <p><strong>Duration:</strong> {{ internship.duration }}</p>
+                <p><strong>Deadline:</strong> {{ internship.deadline }}</p>
+                <p><strong>Description:</strong> {{ internship.responsibilities|truncatewords:25 }}</p>
+                <p><strong>Location:</strong> {{ internship.location }}</p>
+                <p><strong>Mode:</strong> {{ internship.mode }}</p>
+                <p><strong>Stipend:</strong> {{ internship.stipend|default:"Unpaid" }}</p>
+                <a href="{% url 'apply_internship' internship.id %}" class="apply-btn">Apply</a>
+            </div>
+            {% empty %}
+            <p>No internships found.</p>
+            {% endfor %}
+        </div>
+
+        <!-- APPLIED INTERNSHIPS -->
+        <div class="applied-section">
+            <h3>📌 Internships You Applied For</h3>
+            {% if applications %}
+                <ul class="applied-list">
+                    {% for app in applications %}
+                        <li>
+                            <strong>{{ app.internship.title }}</strong> at {{ app.internship.company_name }}&nbsp;
+                            <em>(applied {{ app.created_at|date:"d M Y" }})</em>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You haven't applied for any internships yet.</p>
+            {% endif %}
+        </div>
+    </div>
+    {% endblock %}
+</div>
+{% endblock %}

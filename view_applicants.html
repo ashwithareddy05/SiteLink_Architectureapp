@@ -1,0 +1,91 @@
+
+
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: 'Arial', sans-serif;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #003366;
+    }
+
+    .applicant-card {
+        background: #ffffff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        margin-bottom: 20px;
+    }
+
+    .applicant-card strong {
+        font-size: 18px;
+        color: #003366;
+    }
+
+    .applicant-card p {
+        font-size: 14px;
+        color: #555;
+        margin: 5px 0;
+    }
+
+    .resume-link {
+        display: inline-block;
+        margin-top: 10px;
+        background-color: #007bff;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .resume-link:hover {
+        background-color: #0056b3;
+    }
+
+    .back-link {
+        display: block;
+        text-align: center;
+        margin-top: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<h2>👤 Applicants for "{{ internship.title }}"</h2>
+
+{% if applicants %}
+    {% for applicant in applicants %}
+        <div class="applicant-card">
+            <strong>{{ applicant.first_name }} {{ applicant.last_name }}</strong>
+            <p>📧 Email: {{ applicant.email }}</p>
+            <p>📞 Phone: {{ applicant.phone_number }}</p>
+            <p>🎓 College: {{ applicant.college_name }}</p>
+            <p>📅 Year of Passing: {{ applicant.year_of_passing }}</p>
+            <p>📊 CGPA: {{ applicant.cgpa }}</p>
+            <p>🏆 Achievements: {{ applicant.achievements|default:"N/A" }}</p>
+
+            {% if applicant.resume %}
+                <a href="{{ applicant.resume.url }}" class="resume-link" target="_blank">📄 View Resume</a>
+            {% else %}
+                <p><em>No resume uploaded</em></p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <p style="text-align: center;">No one has applied yet.</p>
+{% endif %}
+
+<a href="{% url 'firm_dashboard' %}" class="back-link">🔙 Back to Dashboard</a>
+{% endblock %}

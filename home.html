@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SiteLink - Connect & Monitor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #e8f0fe;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .navbar {
+            background-color: #2C3E50;
+        }
+
+        .navbar-brand {
+            color: #E67E22;
+            font-weight: bold;
+            font-family: 'Georgia', serif;
+        }
+
+        .hero {
+            padding: 60px 20px;
+            background-color: #ffffff;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero h1 {
+            font-family: 'Georgia', serif;
+            color: #2C3E50;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #2C3E50;
+            margin-bottom: 25px;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+        }
+
+        .feature-icon-student {
+            color: #007bff;
+        }
+
+        .feature-icon-firm {
+            color: #28a745;
+        }
+
+        .feature-icon-client {
+            color: #f39c12;
+        }
+
+        .btn-role-login {
+            margin-top: 15px;
+            width: 100%;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-role-login:hover {
+            background: linear-gradient(45deg, #E67E22, #1ABC9C);
+            color: #fff;
+        }
+
+        .footer {
+            background-color: #2C3E50;
+            color: white;
+            padding: 20px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-family: 'Georgia', serif;
+        }
+
+        .feature-box {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand" href="#">SiteLink</a>
+</nav>
+
+<div class="container">
+    <div class="hero text-center shadow-sm">
+        <h1><i class="fa-solid fa-house-user"></i> Welcome to <strong>SiteLink!</strong></h1>
+        <p class="lead mt-3">Your one-stop platform to connect architecture and civil students with firms and clients for internships and site monitoring.</p>
+    </div>
+
+    <div class="row text-center mt-5">
+        <div class="col-md-4">
+            <div class="p-4 bg-white rounded shadow-sm feature-box">
+                <i class="feature-icon feature-icon-student fa-solid fa-helmet-safety mb-3"></i>
+                <h4>For Students</h4>
+                <p>Find internships, apply to real-time projects, and build your portfolio with hands-on site experience.</p>
+                <a class="btn btn-outline-primary btn-role-login" href="{% url 'login' %}?role=student">Student Login</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 bg-white rounded shadow-sm feature-box">
+                <i class="feature-icon feature-icon-firm fa-solid fa-building mb-3"></i>
+                <h4>For Firms</h4>
+                <p>Post internships, manage applicants, and connect with verified students to support your site work.</p>
+                <a class="btn btn-outline-success btn-role-login" href="{% url 'login' %}?role=firm">Firm Login</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="p-4 bg-white rounded shadow-sm feature-box">
+                <i class="feature-icon feature-icon-client fa-solid fa-user-tie mb-3"></i>
+                <h4>For Clients</h4>
+                <p>Monitor construction remotely with photos and updates directly from students on-site.</p>
+                <a class="btn btn-outline-warning btn-role-login" href="{% url 'login' %}?role=client">Client Login</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <h3 class="section-title">Why Choose SiteLink?</h3>
+        <p>✅ Trusted by architecture & civil firms <br>
+           ✅ Easy internship tracking <br>
+           ✅ Remote client monitoring made simple <br>
+           ✅ Real-world learning for students</p>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2025 SiteLink. All rights reserved.</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,153 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #f4f6f9;
+        font-family: 'Arial', sans-serif;
+    }
+
+    .form-wrapper {
+        max-width: 700px;
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        text-align: center;
+        color: #003366;
+        margin-bottom: 30px;
+    }
+
+    label {
+        font-weight: bold;
+        color: #333;
+    }
+
+    input, textarea, select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    input[type="submit"] {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        color: #007bff;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .back-link:hover {
+        text-decoration: underline;
+    }
+
+    .error-message {
+        color: red;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="form-wrapper">
+    <h2>📢 Post a New Internship</h2>
+
+    {% if form.errors %}
+        <div class="error-message">
+            <p>There are some errors in your form, please correct them.</p>
+        </div>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="id_title">Title:</label>
+        {{ form.title }}
+        {% if form.title.errors %}
+            <div class="error-message">{{ form.title.errors }}</div>
+        {% endif %}
+
+        <label for="id_description">Description:</label>
+        {{ form.description }}
+        {% if form.description.errors %}
+            <div class="error-message">{{ form.description.errors }}</div>
+        {% endif %}
+
+        <label for="id_location">Location:</label>
+        {{ form.location }}
+        {% if form.location.errors %}
+            <div class="error-message">{{ form.location.errors }}</div>
+        {% endif %}
+
+        <label for="id_stipend">Stipend:</label>
+        {{ form.stipend }}
+        {% if form.stipend.errors %}
+            <div class="error-message">{{ form.stipend.errors }}</div>
+        {% endif %}
+
+        <label for="id_mode">Mode:</label>
+        {{ form.mode }}
+        {% if form.mode.errors %}
+            <div class="error-message">{{ form.mode.errors }}</div>
+        {% endif %}
+
+        <label for="id_company_name">Company Name:</label>
+        {{ form.company_name }}
+        {% if form.company_name.errors %}
+            <div class="error-message">{{ form.company_name.errors }}</div>
+        {% endif %}
+
+        <label for="id_responsibilities">Responsibilities:</label>
+        {{ form.responsibilities }}
+        {% if form.responsibilities.errors %}
+            <div class="error-message">{{ form.responsibilities.errors }}</div>
+        {% endif %}
+
+        <label for="id_requirements">Requirements:</label>
+        {{ form.requirements }}
+        {% if form.requirements.errors %}
+            <div class="error-message">{{ form.requirements.errors }}</div>
+        {% endif %}
+
+        <label for="id_deadline">Deadline:</label>
+        <input type="date" id="id_deadline" name="deadline" value="{{ form.deadline.value|date:"Y-m-d" }}">
+        {% if form.deadline.errors %}
+            <div class="error-message">{{ form.deadline.errors }}</div>
+        {% endif %}
+
+        <label for="id_perks">Perks:</label>
+        {{ form.perks }}
+        {% if form.perks.errors %}
+            <div class="error-message">{{ form.perks.errors }}</div>
+        {% endif %}
+
+        <label for="id_duration">Duration:</label>
+        {{ form.duration }}
+        {% if form.duration.errors %}
+            <div class="error-message">{{ form.duration.errors }}</div>
+        {% endif %}
+
+        <input type="submit" value="Post Internship">
+    </form>
+
+    <a class="back-link" href="{% url 'firm_dashboard' %}">← Back to Dashboard</a>
+</div>
+{% endblock %}

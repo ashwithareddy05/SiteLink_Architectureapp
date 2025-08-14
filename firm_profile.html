@@ -1,0 +1,20 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<div class="dashboard-container">
+    <div class="card-box">
+        <h2>🏢 {{ firm.name }}</h2>
+
+        {% if firm.logo %}
+            <img src="{{ firm.logo.url }}" alt="Firm Logo" style="max-height: 120px; margin-bottom: 15px;">
+        {% endif %}
+
+        <p><strong>Description:</strong> {{ firm.description|default:"No description provided." }}</p>
+        <p><strong>Location:</strong> {{ firm.location|default:"Not specified" }}</p>
+
+        {% if firm.website %}
+            <p><strong>Website:</strong> <a href="{{ firm.website }}" target="_blank">{{ firm.website }}</a></p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

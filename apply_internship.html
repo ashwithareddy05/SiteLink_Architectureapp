@@ -1,0 +1,84 @@
+{% extends 'core/base.html' %}
+
+{% block content %}
+<style>
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f7f9fc;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+    }
+
+    form label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+    }
+
+    form input, form select, form textarea {
+        width: 100%;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    form button {
+        margin-top: 20px;
+        padding: 10px 15px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<h2>Apply for Internship</h2>
+
+<p><strong>Title:</strong> {{ internship.title }}</p>
+<p><strong>Location:</strong> {{ internship.location }}</p>
+<p><strong>Description:</strong></p>
+<p>{{ internship.description }}</p>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <label>First Name:</label>
+    <input type="text" name="first_name" required>
+
+    <label>Last Name:</label>
+    <input type="text" name="last_name" required>
+
+    <label>Email:</label>
+    <input type="email" name="email" required>
+
+    <label>Phone Number:</label>
+    <input type="text" name="phone_number" required>
+
+    <label>College Name:</label>
+    <input type="text" name="college_name" required>
+
+    <label>Year of Passing:</label>
+    <input type="text" name="year_of_passing" required>
+
+    <label>CGPA:</label>
+    <input type="number" name="cgpa" step="0.01" min="0" max="10" required>
+
+    <label>Achievements:</label>
+    <textarea name="achievements"></textarea>
+
+    <label>Upload Resume:</label>
+    <input type="file" name="resume" required>
+
+
+
+    <button type="submit">Submit Application</button>
+</form>
+{% endblock %}
