@@ -1,4 +1,6 @@
 This is my architecture project made in VS Code.
+
+
 Bridging Academia and Industry in the Architecture Domain
 This project is a web-based platform designed to connect architecture students, faculty, and industry professionals. It serves as a hub where users can share architectural designs, collaborate on ideas, and receive expert feedback, helping bridge the gap between academic learning and real-world industry practices.
 
