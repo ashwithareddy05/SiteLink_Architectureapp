@@ -135,14 +135,19 @@ In development, static and media settings typically serve from local paths.
 **Virtual environment & dependencies**
    ```bash
    python -m venv venv
+
    # Windows:venv\Scripts\activate
+
    pip install django
+
    python manage.py makemigrations
+
    python manage.py migrate
-   python manage.py createsuperuser
+
+  python manage.py createsuperuser
+
    python manage.py runserver
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/687c8673-6876-4454-bc84-0a995481f610" />
 
    
 
